@@ -8,35 +8,34 @@ const MAX_HEADER_PAIRS = 2000 // from node's http.js
 const MAX_HEADER_SIZE = 80 * 1024 // from node's http_parser
 
 export default class HeaderParser extends EventEmitter {
-  constructor(cfg) {
+  constructor(cfg = {}) {
     super()
+    const { maxHeaderPairs = MAX_HEADER_PAIRS } = cfg
 
-    var self = this
+    // var self = this
     this.nread = 0
     this.maxed = false
     this.npairs = 0
-    this.maxHeaderPairs = (cfg && typeof cfg.maxHeaderPairs === 'number'
-      ? cfg.maxHeaderPairs
-      : MAX_HEADER_PAIRS)
+    this.maxHeaderPairs = maxHeaderPairs
     this.buffer = ''
     this.header = {}
     this.finished = false
     this.ss = new StreamSearch(B_DCRLF)
-    this.ss.on('info', function(isMatch, data, start, end) {
-      if (data && !self.maxed) {
-        if (self.nread + (end - start) > MAX_HEADER_SIZE) {
-          end = (MAX_HEADER_SIZE - self.nread)
-          self.nread = MAX_HEADER_SIZE
+    this.ss.on('info', (isMatch, data, start, end) => {
+      if (data && !this.maxed) {
+        if (this.nread + (end - start) > MAX_HEADER_SIZE) {
+          end = (MAX_HEADER_SIZE - this.nread)
+          this.nread = MAX_HEADER_SIZE
         } else
-          self.nread += (end - start)
+          this.nread += (end - start)
 
-        if (self.nread === MAX_HEADER_SIZE)
-          self.maxed = true
+        if (this.nread === MAX_HEADER_SIZE)
+          this.maxed = true
 
-        self.buffer += data.toString('binary', start, end)
+        this.buffer += data.toString('binary', start, end)
       }
       if (isMatch)
-        self._finish()
+        this._finish()
     })
   }
   push(data) {
@@ -69,10 +68,10 @@ export default class HeaderParser extends EventEmitter {
     var lines = this.buffer.split(RE_CRLF), len = lines.length, m, h,
       modded = false
 
-    for (var i = 0; i < len; ++i) {
+    for (let i = 0; i < len; ++i) {
       if (lines[i].length === 0)
         continue
-      if (lines[i][0] === '\t' || lines[i][0] === ' ') {
+      if (lines[i][0] == '\t' || lines[i][0] == ' ') {
         // folded header content
         // RFC2822 says to just remove the CRLF and not the whitespace following
         // it, so we follow the RFC and include the leading whitespace ...

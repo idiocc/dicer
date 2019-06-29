@@ -24,5 +24,4 @@ export default makeTestSuite('test/result/header-parser', {
     return data[0]
   },
   jsProps: ['expected'],
-  // context: Context,
 })
