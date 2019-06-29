@@ -3,19 +3,14 @@
 The package is available by importing its default function:
 
 ```js
-import dicer from '@idio/dicer'
+import Dicer from '@idio/dicer'
 ```
 
 %~%
 
-```## dicer
-[
-  ["arg1", "string"],
-  ["arg2?", "boolean"]
-]
-```
+## `class Dicer`
 
-Call this function to get the result you want.
+Dicer is a _Writable_ stream.
 
 %TYPEDEF types/index.xml%
 

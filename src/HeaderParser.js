@@ -8,6 +8,13 @@ const MAX_HEADER_PAIRS = 2000 // from node's http.js
 const MAX_HEADER_SIZE = 80 * 1024 // from node's http_parser
 
 export default class HeaderParser extends EventEmitter {
+  /**
+   * @param {_idio.DicerConfig} [cfg] Options for the program.
+   * @param {string} [cfg.boundary] This is the boundary used to detect the beginning of a new part.
+   * @param {boolean} [cfg.headerFirst=false] If true, preamble header parsing will be performed first. Default `false`.
+   * @param {boolean} [cfg.partHwm] High watermark for parsing parts.
+   * @param {number} [cfg.maxHeaderPairs=2000] The maximum number of header key=>value pairs to parse. Default `2000`.
+   */
   constructor(cfg = {}) {
     super()
     const { maxHeaderPairs = MAX_HEADER_PAIRS } = cfg
@@ -100,3 +107,8 @@ export default class HeaderParser extends EventEmitter {
       this.buffer = ''
   }
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types').DicerConfig} _idio.DicerConfig
+ */

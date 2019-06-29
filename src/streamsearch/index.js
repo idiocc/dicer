@@ -44,12 +44,12 @@ export default class SBMH extends EventEmitter {
     this.matches = 0
     this._bufpos = 0
   }
-  push(chunk, pos) {
+  push(chunk, pos = 0) {
     var r, chlen
     if (!Buffer.isBuffer(chunk))
       chunk = new Buffer(chunk, 'binary')
     chlen = chunk.length
-    this._bufpos = pos || 0
+    this._bufpos = pos
     while (r !== chlen && this.matches < this.maxMatches)
       r = this._sbmh_feed(chunk)
     return r
@@ -187,8 +187,11 @@ export default class SBMH extends EventEmitter {
     return len
   }
   _sbmh_lookup_char(data, pos) {
-    if (pos < 0)
-      return this._lookbehind[this._lookbehind_size + pos]
+    if (pos < 0) {
+      /** @suppress {checkTypes} */
+      const res = this._lookbehind[this._lookbehind_size + pos]
+      return res
+    }
     else
       return data[pos]
   }
@@ -204,3 +207,8 @@ export default class SBMH extends EventEmitter {
     return true
   }
 }
+
+/**
+ * @license MIT streamsearch by Brian White
+ * https://github.com/mscdex/streamsearch
+ */

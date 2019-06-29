@@ -1,10 +1,17 @@
-<types namespace="_@idio/dicer">
-  <type name="Config" desc="Options for the program.">
-    <prop boolean name="shouldRun" default="true">
-      A boolean option.
+<types namespace="_idio">
+  <import name="WritableOptions" from="stream" />
+  <type extends="stream.WritableOptions" name="DicerConfig" desc="Options for the program.">
+    <prop opt string name="boundary">
+      This is the boundary used to detect the beginning of a new part.
     </prop>
-    <prop string name="text">
-      A text to return.
+    <prop boolean name="headerFirst" default="false">
+      If true, preamble header parsing will be performed first.
+    </prop>
+    <prop opt boolean name="partHwm">
+      High watermark for parsing parts.
+    </prop>
+    <prop number name="maxHeaderPairs" default="2000">
+      The maximum number of header key=>value pairs to parse.
     </prop>
   </type>
 </types>

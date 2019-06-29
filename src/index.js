@@ -6,22 +6,28 @@ import HeaderParser from './HeaderParser'
 const DASH = 45
 const B_ONEDASH = Buffer.from('-')
 const B_CRLF = Buffer.from('\r\n')
-const EMPTY_FN = function() {}
+const EMPTY_FN = () => {}
 
 export default class Dicer extends Writable {
+  /**
+   * @param {_idio.DicerConfig} [cfg] Options for the program.
+   * @param {string} [cfg.boundary] This is the boundary used to detect the beginning of a new part.
+   * @param {boolean} [cfg.headerFirst=false] If true, preamble header parsing will be performed first. Default `false`.
+   * @param {boolean} [cfg.partHwm] High watermark for parsing parts.
+   * @param {number} [cfg.maxHeaderPairs=2000] The maximum number of header key=>value pairs to parse. Default `2000`.
+   */
   constructor(cfg) {
-    super(cfg)
-    if (!cfg || (!cfg.headerFirst && typeof cfg.boundary !== 'string'))
+    super(/** @type {!stream.WritableOptions|undefined} */ (cfg))
+    if (!cfg || (!cfg.headerFirst && typeof cfg.boundary != 'string'))
       throw new TypeError('Boundary required')
 
-    if (typeof cfg.boundary === 'string')
+    if (typeof cfg.boundary == 'string')
       this.setBoundary(cfg.boundary)
     else
+      /** @type {!StreamSearch|undefined} */
       this._bparser = undefined
 
     this._headerFirst = cfg.headerFirst
-
-    var self = this
 
     this._dashes = 0
     this._parts = 0
@@ -31,22 +37,25 @@ export default class Dicer extends Writable {
     this._justMatched = false
     this._firstWrite = true
     this._inHeader = true
+    /**
+     * @type {!PartStream|undefined}
+     */
     this._part = undefined
     this._cb = undefined
     this._ignoreData = false
-    this._partOpts = (typeof cfg.partHwm === 'number'
+    this._partOpts = /** @type {!stream.ReadableOptions} */ (typeof cfg.partHwm == 'number'
       ? { highWaterMark: cfg.partHwm }
       : {})
     this._pause = false
 
     this._hparser = new HeaderParser(cfg)
-    this._hparser.on('header', function(header) {
-      self._inHeader = false
-      self._part.emit('header', header)
+    this._hparser.on('header', (header) => {
+      this._inHeader = false
+      this._part.emit('header', header)
     })
   }
   emit(ev) {
-    if (ev === 'finish' && !this._realFinish) {
+    if (ev == 'finish' && !this._realFinish) {
       if (!this._finished) {
         var self = this
         process.nextTick(function() {
@@ -69,6 +78,7 @@ export default class Dicer extends Writable {
       }
     } else
       Writable.prototype.emit.apply(this, arguments)
+    return false
   }
   _write(data, encoding, cb) {
     // ignore unexpected data (e.g. extra trailer data after finished)
@@ -222,3 +232,17 @@ export default class Dicer extends Writable {
     }
   }
 }
+
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('../types').DicerConfig} _idio.DicerConfig
+ */
+/**
+ * @suppress {nonStandardJsDocs}
+ * @typedef {import('stream').ReadableOptions} stream.ReadableOptions
+ */
+
+/**
+ * @license MIT dicer by Brian White
+ * https://github.com/mscdex/dicer
+ */
