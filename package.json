@@ -1,6 +1,6 @@
 {
   "name": "@idio/dicer",
-  "version": "0.0.0-pre",
+  "version": "1.0.0",
   "description": "[fork] A Very Fast Streaming Multipart Parser For Node.JS Written In ES6 And Optimised With JavaScript Compiler.",
   "main": "depack/index.js",
   "module": "src/index.js",
