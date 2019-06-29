@@ -1,5 +1,9 @@
 ## 29 June 2019
 
+### [1.0.0](https://github.com/idiocc/dicer/compare/v0.0.0-pre...v1.0.0)
+
+- [package] Publish `v1` of the package.
+
 ### 0.0.0-pre
 
 - Create `@idio/dicer` with _[`My New Package`](https://mnpjs.org)_
