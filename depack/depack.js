@@ -176,21 +176,15 @@ class A extends p {
 */
 const B = Buffer.from("-"), C = Buffer.from("\r\n"), D = () => {
 };
-function E(a, c) {
-  a.h = new u("\r\n--" + c);
-  a.h.on("info", function(d, e, f, b) {
-    F(a, d, e, f, b);
-  });
-}
-function G(a) {
+function E(a) {
   a.a && !a.j && (a.j = !0, a.a.on("error", D), a.a.resume());
 }
-function H(a) {
+function F(a) {
   a.a = void 0;
   a.h = void 0;
   a.g = void 0;
 }
-function F(a, c, d, e, f) {
+function G(a, c, d, e, f) {
   var b, g = 0, l = !0;
   if (!a.a && a.m && d) {
     for (; 2 > a.f && e + g < f;) {
@@ -202,34 +196,34 @@ function F(a, c, d, e, f) {
         break;
       }
     }
-    2 === a.f && (e + g < f && a._events.trailer && a.emit("trailer", d.slice(e + g, f)), H(a), a.s = !0, 0 === a.u && (a.b = !0, a.emit("finish"), a.b = !1));
+    2 === a.f && (e + g < f && a._events.trailer && a.emit("trailer", d.slice(e + g, f)), F(a), a.s = !0, 0 === a.u && (a.b = !0, a.emit("finish"), a.b = !1));
     if (a.f) {
       return;
     }
   }
   a.m && (a.m = !1);
-  a.a || (a.a = new v(a.w), a.a._read = function() {
-    I(a);
-  }, g = a.c ? "preamble" : "part", a._events[g] ? a.emit(g, a.a) : G(a), a.c || (a.i = !0));
-  d && e < f && !a.j && (a.c || !a.i ? (b && (l = a.a.push(b)), l = a.a.push(d.slice(e, f)), l || (a.o = !0)) : !a.c && a.i && (b && a.g.push(b), b = a.g.push(d.slice(e, f)), !a.i && void 0 !== b && b < f && F(a, !1, d, e + b, f)));
-  c && (z(a.g), a.c ? a.c = !1 : (++a.u, a.a.on("end", function() {
-    0 === --a.u && (a.s ? (a.b = !0, a.emit("finish"), a.b = !1) : I(a));
+  a.a || (a.a = new v(a.w), a.a._read = () => {
+    H(a);
+  }, g = a.c ? "preamble" : "part", a._events[g] ? a.emit(g, a.a) : E(a), a.c || (a.i = !0));
+  d && e < f && !a.j && (a.c || !a.i ? (b && (l = a.a.push(b)), l = a.a.push(d.slice(e, f)), l || (a.o = !0)) : !a.c && a.i && (b && a.g.push(b), b = a.g.push(d.slice(e, f)), !a.i && void 0 !== b && b < f && G(a, !1, d, e + b, f)));
+  c && (z(a.g), a.c ? a.c = !1 : (++a.u, a.a.on("end", () => {
+    0 === --a.u && (a.s ? (a.b = !0, a.emit("finish"), a.b = !1) : H(a));
   })), a.a.push(null), a.a = void 0, a.j = !1, a.m = !0, a.f = 0);
 }
-function I(a) {
+function H(a) {
   if (a.o && (a.o = !1, a.l)) {
-    var c = a.l;
+    const c = a.l;
     a.l = void 0;
     c();
   }
 }
-class J extends n {
+class I extends n {
   constructor(a) {
     super(a);
     if (!a || !a.headerFirst && "string" != typeof a.boundary) {
       throw new TypeError("Boundary required");
     }
-    "string" == typeof a.boundary ? E(this, a.boundary) : this.h = void 0;
+    "string" == typeof a.boundary ? this.setBoundary(a.boundary) : this.h = void 0;
     this.A = a.headerFirst;
     this.u = this.f = 0;
     this.b = this.s = !1;
@@ -247,21 +241,14 @@ class J extends n {
     });
   }
   emit(a) {
-    if ("finish" != a || this.b) {
-      n.prototype.emit.apply(this, arguments);
-    } else {
-      if (!this.s) {
-        var c = this;
-        process.nextTick(function() {
-          c.emit("error", Error("Unexpected end of multipart data"));
-          c.a && !c.j ? (c.a.emit("error", Error((c.c ? "Preamble" : "Part") + " terminated early due to unexpected end of multipart data")), c.a.push(null), process.nextTick(function() {
-            c.b = !0;
-            c.emit("finish");
-            c.b = !1;
-          })) : (c.b = !0, c.emit("finish"), c.b = !1);
-        });
-      }
-    }
+    "finish" != a || this.b ? n.prototype.emit.apply(this, arguments) : this.s || process.nextTick(() => {
+      this.emit("error", Error("Unexpected end of multipart data"));
+      this.a && !this.j ? (this.a.emit("error", Error((this.c ? "Preamble" : "Part") + " terminated early due to unexpected end of multipart data")), this.a.push(null), process.nextTick(() => {
+        this.b = !0;
+        this.emit("finish");
+        this.b = !1;
+      })) : (this.b = !0, this.emit("finish"), this.b = !1);
+    });
     return !1;
   }
   _write(a, c, d) {
@@ -269,7 +256,7 @@ class J extends n {
       return d();
     }
     if (this.A && this.c) {
-      if (this.a || (this.a = new v(this.w), this._events.B ? this.emit("preamble", this.a) : G(this)), c = this.g.push(a), !this.i && void 0 !== c && c < a.length) {
+      if (this.a || (this.a = new v(this.w), this._events.preamble ? this.emit("preamble", this.a) : E(this)), c = this.g.push(a), !this.i && void 0 !== c && c < a.length) {
         a = a.slice(c);
       } else {
         return d();
@@ -279,8 +266,14 @@ class J extends n {
     this.h.push(a);
     this.o ? this.l = d : d();
   }
+  setBoundary(a) {
+    this.h = new u("\r\n--" + a);
+    this.h.on("info", (c, d, e, f) => {
+      G(this, c, d, e, f);
+    });
+  }
 }
-;DEPACK_EXPORT = J;
+;DEPACK_EXPORT = I;
 
 
 module.exports = DEPACK_EXPORT

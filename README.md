@@ -14,6 +14,7 @@ yarn add @idio/dicer
 - [API](#api)
 - [`class Dicer`](#class-dicer)
   * [`_idio.DicerConfig`](#type-_idiodicerconfig)
+  * [`_idio.Dicer`](#type-_idiodicer)
 - [Copyright](#copyright)
 
 <p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
@@ -42,6 +43,12 @@ __<a name="type-_idiodicerconfig">`_idio.DicerConfig`</a>__: Options for the pro
 | headerFirst    | <em>boolean</em> | If true, preamble header parsing will be performed first.        | `false` |
 | partHwm        | <em>boolean</em> | High watermark for parsing parts.                                | -       |
 | maxHeaderPairs | <em>number</em>  | The maximum number of header key=&gt;value pairs to parse.       | `2000`  |
+
+__<a name="type-_idiodicer">`_idio.Dicer`</a>__
+
+|       Name       |              Type               |                                                                                                              Description                                                                                                              |
+| ---------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| __setBoundary*__ | <em>function(string): void</em> | Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header. |
 
 ```js
 import Dicer from '@idio/dicer'

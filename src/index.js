@@ -8,6 +8,9 @@ const B_ONEDASH = Buffer.from('-')
 const B_CRLF = Buffer.from('\r\n')
 const EMPTY_FN = () => {}
 
+/**
+ * @implements {_idio.Dicer}
+ */
 export default class Dicer extends Writable {
   /**
    * @param {_idio.DicerConfig} [cfg] Options for the program.
@@ -57,23 +60,22 @@ export default class Dicer extends Writable {
   emit(ev) {
     if (ev == 'finish' && !this._realFinish) {
       if (!this._finished) {
-        var self = this
-        process.nextTick(function() {
-          self.emit('error', new Error('Unexpected end of multipart data'))
-          if (self._part && !self._ignoreData) {
-            var type = (self._isPreamble ? 'Preamble' : 'Part')
-            self._part.emit('error', new Error(type + ' terminated early due to unexpected end of multipart data'))
-            self._part.push(null)
-            process.nextTick(function() {
-              self._realFinish = true
-              self.emit('finish')
-              self._realFinish = false
+        process.nextTick(() => {
+          this.emit('error', new Error('Unexpected end of multipart data'))
+          if (this._part && !this._ignoreData) {
+            var type = (this._isPreamble ? 'Preamble' : 'Part')
+            this._part.emit('error', new Error(type + ' terminated early due to unexpected end of multipart data'))
+            this._part.push(null)
+            process.nextTick(() => {
+              this._realFinish = true
+              this.emit('finish')
+              this._realFinish = false
             })
             return
           }
-          self._realFinish = true
-          self.emit('finish')
-          self._realFinish = false
+          this._realFinish = true
+          this.emit('finish')
+          this._realFinish = false
         })
       }
     } else
@@ -88,12 +90,12 @@ export default class Dicer extends Writable {
     if (this._headerFirst && this._isPreamble) {
       if (!this._part) {
         this._part = new PartStream(this._partOpts)
-        if (this._events.preamble)
+        if (this._events['preamble'])
           this.emit('preamble', this._part)
         else
           this._ignore()
       }
-      var r = this._hparser.push(data)
+      const r = this._hparser.push(data)
       if (!this._inHeader && r !== undefined && r < data.length)
         data = data.slice(r)
       else
@@ -119,10 +121,9 @@ export default class Dicer extends Writable {
     this._hparser = undefined
   }
   setBoundary(boundary) {
-    var self = this
     this._bparser = new StreamSearch('\r\n--' + boundary)
-    this._bparser.on('info', function(isMatch, data, start, end) {
-      self._oninfo(isMatch, data, start, end)
+    this._bparser.on('info', (isMatch, data, start, end) => {
+      this._oninfo(isMatch, data, start, end)
     })
   }
   _ignore() {
@@ -136,7 +137,7 @@ export default class Dicer extends Writable {
     }
   }
   _oninfo(isMatch, data, start, end) {
-    var buf, self = this, i = 0, r, ev, shouldWriteMore = true
+    var buf, i = 0, r, ev, shouldWriteMore = true
 
     if (!this._part && this._justMatched && data) {
       while (this._dashes < 2 && (start + i) < end) {
@@ -156,10 +157,10 @@ export default class Dicer extends Writable {
         this.reset()
         this._finished = true
         // no more parts will be added
-        if (self._parts === 0) {
-          self._realFinish = true
-          self.emit('finish')
-          self._realFinish = false
+        if (this._parts === 0) {
+          this._realFinish = true
+          this.emit('finish')
+          this._realFinish = false
         }
       }
       if (this._dashes)
@@ -169,8 +170,8 @@ export default class Dicer extends Writable {
       this._justMatched = false
     if (!this._part) {
       this._part = new PartStream(this._partOpts)
-      this._part._read = function() {
-        self._unpause()
+      this._part._read = () => {
+        this._unpause()
       }
       ev = this._isPreamble ? 'preamble' : 'part'
       if (this._events[ev])
@@ -201,14 +202,14 @@ export default class Dicer extends Writable {
         this._isPreamble = false
       else {
         ++this._parts
-        this._part.on('end', function() {
-          if (--self._parts === 0) {
-            if (self._finished) {
-              self._realFinish = true
-              self.emit('finish')
-              self._realFinish = false
+        this._part.on('end', () => {
+          if (--this._parts === 0) {
+            if (this._finished) {
+              this._realFinish = true
+              this.emit('finish')
+              this._realFinish = false
             } else {
-              self._unpause()
+              this._unpause()
             }
           }
         })
@@ -221,12 +222,11 @@ export default class Dicer extends Writable {
     }
   }
   _unpause() {
-    if (!this._pause)
-      return
+    if (!this._pause) return
 
     this._pause = false
     if (this._cb) {
-      var cb = this._cb
+      const cb = this._cb
       this._cb = undefined
       cb()
     }

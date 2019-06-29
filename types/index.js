@@ -15,5 +15,12 @@ export {}
  * @prop {number} [maxHeaderPairs=2000] The maximum number of header key=>value pairs to parse. Default `2000`.
  */
 /**
+ * @typedef {_idio.Dicer} Dicer
+ */
+/**
+ * @typedef {Object} _idio.Dicer
+ * @prop {function(string): void} setBoundary Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header.
+ */
+/**
  * @typedef {import('stream').WritableOptions} stream.WritableOptions
  */

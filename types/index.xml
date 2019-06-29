@@ -14,4 +14,9 @@
       The maximum number of header key=>value pairs to parse.
     </prop>
   </type>
+  <type name="Dicer">
+    <prop type="function(string): void" name="setBoundary">
+      Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header.
+    </prop>
+  </type>
 </types>

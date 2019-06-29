@@ -6,6 +6,10 @@ var _idio = {}
  * @typedef {{ boundary: (string|undefined), headerFirst: (boolean|undefined), partHwm: (boolean|undefined), maxHeaderPairs: (number|undefined) }}
  */
 _idio.DicerConfig
+/**
+ * @typedef {{ setBoundary: function(string): void }}
+ */
+_idio.Dicer
 
 /**
  * @type {!Object}
