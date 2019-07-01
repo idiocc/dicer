@@ -39,5 +39,3 @@ module.exports = Dicer
 /**
  * @typedef {import('stream').WritableOptions} stream.WritableOptions
  */
-
-console.log('testing Depack')

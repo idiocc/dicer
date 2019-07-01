@@ -1,3 +1,9 @@
+## 1 July 2019
+
+### [1.0.1](https://github.com/idiocc/dicer/compare/v1.0.0...v1.0.1)
+
+- [fix] Remove `testing Depack` log.
+
 ## 29 June 2019
 
 ### [1.0.0](https://github.com/idiocc/dicer/compare/v0.0.0-pre...v1.0.0)
