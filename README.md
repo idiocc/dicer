@@ -49,6 +49,7 @@ __<a name="type-_idiodicer">`_idio.Dicer`</a>__
 |       Name       |              Type               |                                                                                                              Description                                                                                                              |
 | ---------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | __setBoundary*__ | <em>function(string): void</em> | Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header. |
+| ___ignore*__     | <em>function(): void</em>       | Ignores current part.                                                                                                                                                                                                                 |
 
 ```js
 import Dicer from '@idio/dicer'

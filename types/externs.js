@@ -7,7 +7,7 @@ var _idio = {}
  */
 _idio.DicerConfig
 /**
- * @typedef {{ setBoundary: function(string): void }}
+ * @typedef {{ setBoundary: function(string): void, _ignore: function(): void }}
  */
 _idio.Dicer
 

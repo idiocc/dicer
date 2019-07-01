@@ -20,6 +20,7 @@ export {}
 /**
  * @typedef {Object} _idio.Dicer
  * @prop {function(string): void} setBoundary Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header.
+ * @prop {function(): void} _ignore Ignores current part.
  */
 /**
  * @typedef {import('stream').WritableOptions} stream.WritableOptions

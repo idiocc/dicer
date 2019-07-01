@@ -18,5 +18,8 @@
     <prop type="function(string): void" name="setBoundary">
       Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header.
     </prop>
+    <prop type="function(): void" name="_ignore">
+      Ignores current part.
+    </prop>
   </type>
 </types>
