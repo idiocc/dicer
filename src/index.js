@@ -104,10 +104,12 @@ export default class Dicer extends Writable {
 
     // allows for "easier" testing
     if (this._firstWrite) {
+      // this.start = +new Date
       this._bparser.push(B_CRLF)
       this._firstWrite = false
     }
 
+    // this.start = +new Date
     this._bparser.push(data)
 
     if (this._pause)
@@ -124,6 +126,8 @@ export default class Dicer extends Writable {
     this._bparser = new StreamSearch('\r\n--' + boundary)
     this._bparser.on('info', (isMatch, data, start, end) => {
       this._oninfo(isMatch, data, start, end)
+      // const duration = +new Date - this.start
+      // console.log('found in %sms', duration)
     })
   }
   _ignore() {
