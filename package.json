@@ -22,6 +22,7 @@
   "files": [
     "compile",
     "src",
+    "typedefs.json",
     "types/externs.js"
   ],
   "externs": "types/externs.js",
@@ -29,6 +30,7 @@
     "type": "git",
     "url": "git://github.com/idiocc/dicer.git"
   },
+  "typedefs": "typedefs.json",
   "keywords": [
     "dicer",
     "idio"

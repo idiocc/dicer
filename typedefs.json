@@ -1,0 +1,10 @@
+{
+  "_idio.DicerConfig": {
+    "link": "https://github.com/idiocc/dicer#type-dicerconfig",
+    "description": "Options for the program."
+  },
+  "_idio.Dicer": {
+    "link": "https://github.com/idiocc/dicer#type-dicer",
+    "description": null
+  }
+}

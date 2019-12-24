@@ -1,6 +1,6 @@
 # @idio/dicer
 
-[![npm version](https://badge.fury.io/js/%40idio%2Fdicer.svg)](https://npmjs.org/package/@idio/dicer)
+[![npm version](https://badge.fury.io/js/%40idio%2Fdicer.svg)](https://www.npmjs.com/package/@idio/dicer)
 
 `@idio/dicer` is a [fork](https://github.com/mscdex/dicer) of A Very Fast Streaming Multipart Parser For Node.JS Written In ES6 And Optimised With [JavaScript Compiler](https://compiler.page).
 
@@ -17,7 +17,9 @@ yarn add @idio/dicer
   * [`_idio.Dicer`](#type-_idiodicer)
 - [Copyright](#copyright)
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/0.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/0.svg?sanitize=true">
+</a></p>
 
 ## API
 
@@ -27,7 +29,9 @@ The package is available by importing its default function:
 import Dicer from '@idio/dicer'
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/1.svg?sanitize=true">
+</a></p>
 
 ## `class Dicer`
 
@@ -35,7 +39,7 @@ Dicer is a _Writable_ stream.
 
 `import('stream').WritableOptions` __<a name="type-streamwritableoptions">`stream.WritableOptions`</a>__
 
-__<a name="type-_idiodicerconfig">`_idio.DicerConfig`</a>__: Options for the program.
+<strong><a name="type-_idiodicerconfig">`_idio.DicerConfig`</a> extends [`stream.WritableOptions`](#type-streamwritableoptions)</strong>: Options for the program.
 
 |      Name      |       Type       |                           Description                            | Default |
 | -------------- | ---------------- | ---------------------------------------------------------------- | ------- |
@@ -44,12 +48,13 @@ __<a name="type-_idiodicerconfig">`_idio.DicerConfig`</a>__: Options for the pro
 | partHwm        | <em>boolean</em> | High watermark for parsing parts.                                | -       |
 | maxHeaderPairs | <em>number</em>  | The maximum number of header key=&gt;value pairs to parse.       | `2000`  |
 
-__<a name="type-_idiodicer">`_idio.Dicer`</a>__
+<strong><a name="type-_idiodicer">`_idio.Dicer`</a></strong>
 
-|       Name       |              Type               |                                                                                                              Description                                                                                                              |
-| ---------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| __setBoundary*__ | <em>function(string): void</em> | Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header. |
-| ___ignore*__     | <em>function(): void</em>       | Ignores current part.                                                                                                                                                                                                                 |
+|      Name       |                                                                       Type                                                                       |                                                                                                              Description                                                                                                              |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| __constructor__ | <em>new (cfg?: <a href="#type-_idiodicerconfig" title="Options for the program.">!_idio.DicerConfig</a>) => [_idio.Dicer](#type-_idiodicer)</em> | Creates a new instance.                                                                                                                                                                                                               |
+| __setBoundary__ | <em>(boundary: string) => void</em>                                                                                                              | Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header. |
+| ___ignore__     | <em>() => void</em>                                                                                                                              | Ignores current part.                                                                                                                                                                                                                 |
 
 ```js
 import Dicer from '@idio/dicer'
@@ -110,7 +115,9 @@ createServer(function(req, res) {
 Listening for requests on port 8080
 ```
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/2.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/2.svg?sanitize=true">
+</a></p>
 
 ## Copyright
 
@@ -122,7 +129,8 @@ Original Work by [Brian White aka mscdex](https://github.com/mscdex/dicer).
   <tr>
     <th>
       <a href="https://artd.eco">
-        <img src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png" alt="Art Deco">
+        <img width="100" src="https://raw.githubusercontent.com/wrote/wrote/master/images/artdeco.png"
+          alt="Art Deco">
       </a>
     </th>
     <th>© <a href="https://artd.eco">Art Deco</a> for <a href="https://idio.cc">Idio</a> 2019</th>
@@ -133,7 +141,7 @@ Original Work by [Brian White aka mscdex](https://github.com/mscdex/dicer).
     </th>
     <th>
       <a href="https://www.technation.sucks" title="Tech Nation Visa">
-        <img src="https://raw.githubusercontent.com/artdecoweb/www.technation.sucks/master/anim.gif"
+        <img width="100" src="https://raw.githubusercontent.com/idiocc/cookies/master/wiki/arch4.jpg"
           alt="Tech Nation Visa">
       </a>
     </th>
@@ -141,4 +149,6 @@ Original Work by [Brian White aka mscdex](https://github.com/mscdex/dicer).
   </tr>
 </table>
 
-<p align="center"><a href="#table-of-contents"><img src="/.documentary/section-breaks/-1.svg?sanitize=true"></a></p>
+<p align="center"><a href="#table-of-contents">
+  <img src="/.documentary/section-breaks/-1.svg?sanitize=true">
+</a></p>
