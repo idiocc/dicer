@@ -1,9 +1,9 @@
+#!/usr/bin/env node
 'use strict';
-let DEPACK_EXPORT;
 const stream = require('stream');
-const events = require('events');'use strict';
-const {Readable:m, Writable:n} = stream;
-const {EventEmitter:p} = events;
+const events = require('events');             
+const m = stream.Readable, n = stream.Writable;
+const p = events.EventEmitter;
 /*
  MIT streamsearch by Brian White
  https://github.com/mscdex/streamsearch
@@ -273,7 +273,7 @@ class H extends n {
     this.a && !this.j && (this.j = !0, this.a.on("error", D), this.a.resume());
   }
 }
-;DEPACK_EXPORT = H;
+;module.exports = H;
 
 
-module.exports = DEPACK_EXPORT
+//# sourceMappingURL=dicer.js.map

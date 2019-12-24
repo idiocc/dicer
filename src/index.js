@@ -13,7 +13,7 @@ const EMPTY_FN = () => {}
  */
 export default class Dicer extends Writable {
   /**
-   * @param {_idio.DicerConfig} [cfg] Options for the program.
+   * @param {!_idio.DicerConfig} [cfg] Options for the program.
    * @param {string} [cfg.boundary] This is the boundary used to detect the beginning of a new part.
    * @param {boolean} [cfg.headerFirst=false] If true, preamble header parsing will be performed first. Default `false`.
    * @param {boolean} [cfg.partHwm] High watermark for parsing parts.

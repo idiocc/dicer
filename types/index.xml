@@ -14,12 +14,19 @@
       The maximum number of header key=>value pairs to parse.
     </prop>
   </type>
-  <type name="Dicer">
-    <prop type="function(string): void" name="setBoundary">
+  <interface name="Dicer">
+    <fn name="constructor">
+      <arg type="!_idio.DicerConfig" name="cfg" opt>
+        The configuration options.
+      </arg>
+      Creates a new instance.
+    </fn>
+    <fn void name="setBoundary">
+      <arg name="boundary" type="string">The boundary.</arg>
       Sets the boundary to use for parsing and performs some initialization needed for parsing. You should only need to use this if you set `headerFirst` to true in the constructor and are parsing the boundary from the preamble header.
-    </prop>
-    <prop type="function(): void" name="_ignore">
+    </fn>
+    <fn void name="_ignore">
       Ignores current part.
-    </prop>
-  </type>
+    </fn>
+  </interface>
 </types>

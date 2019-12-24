@@ -1,3 +1,4 @@
+import '../types/externs'
 import Dicer from './'
 
-DEPACK_EXPORT = Dicer
+module.exports = Dicer
